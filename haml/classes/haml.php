@@ -5,7 +5,12 @@
  * well-indented clean templates for HTML.
  *
  * Find out more about haml at http://haml.info/
- *
+ * this module allows you to include subtemplates inside
+ * your Haml templates. Include templates using 'partial' keyword:
+ * <code>
+ *	 partial:templatename 
+ * </code>
+ * 
  * This module is not included by default, download it here:
  *
  * https://github.com/dracony/PHPixie-HAML
