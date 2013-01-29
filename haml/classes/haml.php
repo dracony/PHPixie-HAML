@@ -24,39 +24,39 @@
  */
 class Haml extends View {
 
-    /**
-     * Haml Parser
-     * @var MtHaml\Environment   
-     * @access protected 
-     */
+	/**
+	 * Haml Parser
+	 * @var MtHaml\Environment   
+	 * @access protected 
+	 */
 	protected $_parser;
 	
 	/**
-     * File extension of the templates
-     * @var string   
-     * @access protected 
-     */
+	 * File extension of the templates
+	 * @var string   
+	 * @access protected 
+	 */
 	protected $_extension = 'haml';
 	
 	/**
-     * Directory to parse haml templates into.
+	 * Directory to parse haml templates into.
 	 * Relative to ROOTDIR
-     * @var string   
-     * @access protected 
-     */
+	 * @var string   
+	 * @access protected 
+	 */
 	protected $_render_dir;
 	
 	/**
-     * Constructs the haml view.
+	 * Constructs the haml view.
 	 * Use it as you would a basic View, the only
-     * difference is that the template must have
+	 * difference is that the template must have
 	 * a .haml extension
 	 * 
-     * @param string   $name The name of the template to use.
-     * @return Haml    
-     * @access protected
-     * @throws Exception If MtHaml is not found
-     */
+	 * @param string   $name The name of the template to use.
+	 * @return Haml    
+	 * @access protected
+	 * @throws Exception If MtHaml is not found
+	 */
 	protected function __construct($name) {
 		parent::__construct($name);
 		
@@ -73,13 +73,13 @@ class Haml extends View {
 	}
 	
 	/**
-     * Renders the template, all dynamically set properties
+	 * Renders the template, all dynamically set properties
 	 * will be available inside the view file as variables.
-     *
-     * @return string Rendered template
-     * @access public  
+	 *
+	 * @return string Rendered template
+	 * @access public  
 	 * @see View::render()
-     */
+	 */
 	public function render() {
 		$rendered = $this->parse_template($this->name);
 		extract($this->_data);
@@ -91,14 +91,14 @@ class Haml extends View {
 	}
 	
 	/**
-     * Parses HAML into a php template.
+	 * Parses HAML into a php template.
 	 * Will only parse haml template if the parsed version
 	 * does not exist yet or if the Haml version is more recent.
-     *
+	 *
 	 * @param string  $name The name of the template to parse.
-     * @return string Path to the parsed template
-     * @access protected  
-     */
+	 * @return string Path to the parsed template
+	 * @access protected  
+	 */
 	protected function parse_template($name){
 		$file = Misc::find_file('views', $name, $this->_extension);
 		if ($file == false)
