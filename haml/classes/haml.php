@@ -83,6 +83,7 @@ class Haml extends View {
 	public function render() {
 		$rendered = $this->parse_template($this->name);
 		extract($this->_data);
+		$renderer = $this;
 		ob_start();
 		include($rendered);
 		$out = ob_get_contents();
@@ -107,27 +108,22 @@ class Haml extends View {
 		$dir = ROOTDIR.$this->_render_dir.dirname($name);
 		$rendered = ROOTDIR.$this->_render_dir.$name.'.php';
 	
-		$haml = file_get_contents($file);
-		
-		$partials = array();
-		$render_dir = $this->_render_dir;
-		$haml = preg_replace_callback('#^([ \t]*)partial\:(.*?)[ \t]*$#m', 
-			function($match) use ( & $partials, $render_dir) {
-				$partial=trim($match[2]);
-				$partials[] = $partial;
-				return "{$match[1]}- include(ROOTDIR.'{$render_dir}{$partial}.php');";
-			}, $haml);	
-			
-		if (!file_exists($rendered) || filemtime($rendered) <= filemtime($file)) {
+		if (!file_exists($rendered) || filemtime($rendered) <= filemtime($file)){
+				
+			$haml = file_get_contents($file);
+			$haml = preg_replace_callback('#^([ \t]*)partial\:(.*?)[ \t]*$#m', 
+				function($match) {
+					$partial=trim($match[2]);
+					return "{$match[1]}- include(\$renderer->parse_template({$partial}));";
+				}, $haml);	
+				
 			$content = $this->_parser->compileString($haml, $file);
 			if(!is_dir($dir))
 				mkdir($dir, 0777, true);
 			file_put_contents($rendered, $content);
+			
 		}
 		
-		foreach($partials as $partial)
-			$this->parse_template($partial);
-			
 		return $rendered;
 	}
 }
