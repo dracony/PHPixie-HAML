@@ -41,7 +41,7 @@ class View extends \PHPixie\View {
 	public function __construct($pixie, $name) {
 		parent::__construct($pixie, $name);
 		$this->_parser = new \MtHaml\Environment('php');
-		$this->_render_dir = $pixie->root_dir.$pixie->config->get('haml.render_dir').'/';
+		$this->_render_dir = $pixie->root_dir.$pixie->config->get('haml.render_dir','/assets/rendered').'/';
 	}
 	
 	/**
