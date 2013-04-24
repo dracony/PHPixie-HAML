@@ -1,0 +1,27 @@
+{
+    "name": "phpixie/haml",
+    "description": "HAML templates for PHPixie",
+    "keywords": ["haml", "templating"],
+    "homepage": "http://phpixie.com",
+    "type": "library",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Roman Tsiupa",
+            "email": "draconyster@gmail.com",
+            "homepage": "http://dracony.org"
+        }
+    ],
+    "require": {
+        "phpixie/core": "2.*@dev",
+		"mthaml/mthaml": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {"PHPixie": "classes/"}
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        }
+    }
+}
