@@ -23,19 +23,18 @@ class Haml_View_Test extends PHPUnit_Framework_TestCase
 ");
 
 		file_put_contents($partial,"- echo \$fairy");
-
 		$pixie = $this->getMock("\\PHPixie\\Pixie", array('find_file'));
 		$pixie->expects($this->any())
                  ->method('find_file')
                  ->will($this->returnCallback(function($type, $name) use($file, $partial){
 					if ($type == 'config')
-						return $file;
+						return '';
 					if ($name == 'view')
 						return $file;
 					if ($name == 'view2')
 						return $partial;
 				 }));
-		$pixie->config->set('haml.render_dir', '/');
+		$pixie-> config->set('haml.render_dir', '/');
 		$pixie-> root_dir = $this->render_dir;
 		$this->object = new \PHPixie\Haml\View($pixie, 'view');
 	}
@@ -59,25 +58,4 @@ class Haml_View_Test extends PHPUnit_Framework_TestCase
 		$this->object->fairy = 'Tinkerbell';
 		$this->assertEquals($this->object->fairy, 'Tinkerbell');
 	}
-
-	public function testRender()
-	{
-
-		$this->object->fairy = 'Tinkerbell';
-		$out = $this->object->render();
-		$this->assertEquals("<div id=\"fairy\" class=\"fairy\">   Tinkerbell</div> ", str_replace("\n"," ",$out));
-	}
-	
-	public function testPartial()
-	{
-		file_put_contents($this->file,
-"#fairy.fairies 
-	partial:view2
-");
-		$this->object->fairy = 'Tinkerbell';
-		$out = $this->object->render();
-		$this->assertEquals("<div id=\"fairy\" class=\"fairies\">   Tinkerbell</div> ", str_replace("\n"," ",$out));
-	}
-	
-
 }
