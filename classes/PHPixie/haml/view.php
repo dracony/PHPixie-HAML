@@ -35,6 +35,7 @@ class View extends \PHPixie\View {
 	/**
 	 * Constructs the haml view.
 	 * 
+	 * @param \PHPixie\Pixie $pixie Pixie dependency container
 	 * @param string   $name The name of the template to use.
 	 * @return Haml    
 	 */
