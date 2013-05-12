@@ -85,7 +85,7 @@ class View extends \PHPixie\View {
 			$haml = preg_replace_callback('#^([ \t]*)partial\:(.*?)[ \t]*$#m', 
 				function($match) {
 					$partial=trim($match[2]);
-					return "{$match[1]}- include(\$renderer->parse_template('{$partial}'));";
+					return "{$match[1]}- include(\$renderer->parse_template({$partial}));";
 				}, $haml);	
 				
 			$content = $this->_parser->compileString($haml, $file);
