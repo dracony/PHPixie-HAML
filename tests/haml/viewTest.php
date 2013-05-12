@@ -72,7 +72,7 @@ class Haml_View_Test extends PHPUnit_Framework_TestCase
 	{
 		file_put_contents($this->file,
 "#fairy.fairies 
-	partial:view2
+	partial:'view2'
 ");
 		$this->object->fairy = 'Tinkerbell';
 		$out = $this->object->render();
