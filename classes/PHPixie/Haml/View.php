@@ -36,11 +36,12 @@ class View extends \PHPixie\View {
 	 * Constructs the haml view.
 	 * 
 	 * @param \PHPixie\Pixie $pixie Pixie dependency container
+	 * @param \PHPixie\View\Helper View Helper
 	 * @param string   $name The name of the template to use.
 	 * @return Haml    
 	 */
-	public function __construct($pixie, $name) {
-		parent::__construct($pixie, $name);
+	public function __construct($pixie, $helper, $name) {
+		parent::__construct($pixie, $helper, $name);
 		$this->_parser = new \MtHaml\Environment('php');
 		$this->_render_dir = $pixie->root_dir.$pixie->config->get('haml.render_dir','/assets/rendered').'/';
 	}
@@ -54,6 +55,7 @@ class View extends \PHPixie\View {
 	 */
 	public function render() {
 		$rendered = $this->parse_template($this->name);
+		extract($this->helper->get_aliases());
 		extract($this->_data);
 		$renderer = $this;
 		ob_start();
