@@ -58,7 +58,7 @@ class Haml {
 	 * @return \PHPixie\Haml\View
 	 */
 	public function get($name) {
-		return new \PHPixie\Haml\View($this->pixie, $name);
+		return new \PHPixie\Haml\View($this->pixie, $this->pixie->view_helper(), $name);
 	}
 	
 }
